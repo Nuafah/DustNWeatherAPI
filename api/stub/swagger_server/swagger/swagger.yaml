@@ -1,0 +1,184 @@
+openapi: 3.0.0
+info:
+  title: Air Quality API
+  description: This API provides data of bangkok weather over
+  version: 1.0.0
+servers:
+- url: /air-quality-api/v1
+paths:
+  /bangkok_dust:
+    get:
+      summary: Returns a list of bangkok dust.
+      operationId: controller_get_bangkok_dust
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dustShort'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /bangkok_dust/{dust_id}:
+    get:
+      summary: Returns complete details of the specified id
+      operationId: controller_get_bangkok_dust_details
+      parameters:
+      - name: dust_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dustFull'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /bangkok_weather:
+    get:
+      summary: Returns a list of bangkok weather.
+      operationId: controller_get_bangkok_weather
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/weatherShort'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /bangkok_weather/{weather_id}:
+    get:
+      summary: Returns complete details of bangkok weather.
+      operationId: controller_get_bangkok_weather_details
+      parameters:
+      - name: weather_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/weatherFull'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    dustShort:
+      type: object
+      properties:
+        id:
+          type: integer
+        location:
+          type: string
+        pm2_5:
+          type: number
+      example:
+        pm2_5: 6.02745618307040320615897144307382404804229736328125
+        location: location
+        id: 0
+    dustFull:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        pm1:
+          type: number
+        pm2_5:
+          type: number
+        pm10:
+          type: number
+        location:
+          type: number
+      example:
+        pm1: 5.962133916683182377482808078639209270477294921875
+        pm2_5: 5.63737665663332876420099637471139430999755859375
+        pm10: 2.3021358869347654518833223846741020679473876953125
+        lon: 1.46581298050294517310021547018550336360931396484375
+        location: 7.061401241503109105224211816675961017608642578125
+        id: 0
+        lat: 6.02745618307040320615897144307382404804229736328125
+        ts: ts
+    weatherShort:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        temp_c:
+          type: number
+        wind_kph:
+          type: number
+        humidity:
+          type: number
+      example:
+        wind_kph: 1.46581298050294517310021547018550336360931396484375
+        humidity: 5.962133916683182377482808078639209270477294921875
+        id: 0
+        temp_c: 6.02745618307040320615897144307382404804229736328125
+        ts: ts
+    weatherFull:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        ts:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        temp_c:
+          type: number
+        feelslike_c:
+          type: number
+        condition_text:
+          type: string
+        wind_kph:
+          type: number
+        wind_dir:
+          type: string
+        humidity:
+          type: number
+        cloud:
+          type: number
+      example:
+        cloud: 9.301444243932575517419536481611430644989013671875
+        feelslike_c: 5.63737665663332876420099637471139430999755859375
+        wind_kph: 2.3021358869347654518833223846741020679473876953125
+        condition_text: condition_text
+        name: name
+        humidity: 7.061401241503109105224211816675961017608642578125
+        lon: 1.46581298050294517310021547018550336360931396484375
+        id: 0
+        wind_dir: wind_dir
+        temp_c: 5.962133916683182377482808078639209270477294921875
+        lat: 6.02745618307040320615897144307382404804229736328125
+        ts: ts
+

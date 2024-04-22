@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: Air Quality API
+  description:
+    This API provides data of bangkok weather and the Air Quality that collect by dust sensor
+  version: 1.0.0
+servers:
+- url: /air-quality-api/v1
+paths:
+  /bangkok_dust:
+    get:
+      summary: Returns a list of bangkok dust.
+      operationId: controller.get_bangkok_dust
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dustShort'
+  /bangkok_dust/{dust_id}:
+    parameters:
+    - name: dust_id
+      in: path
+      required: true
+      schema:
+        type : integer
+    get:
+      summary: Returns complete details of the specified id
+      operationId: controller.get_bangkok_dust_details
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dustFull'
+  /bangkok_weather:
+    get:
+      summary: Returns a list of bangkok weather.
+      operationId: controller.get_bangkok_weather
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/weatherShort'
+  /bangkok_weather/{weather_id}:
+    parameters:
+      - name: weather_id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Returns complete details of bangkok weather.
+      operationId: controller.get_bangkok_weather_details
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/weatherFull'
+components:
+  schemas:
+    dustShort:
+      type: object
+      properties:
+        id:
+          type: integer
+        location:
+          type: string
+        pm2_5:
+          type: number
+    dustFull:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        pm1:
+          type: number
+        pm2_5:
+          type: number
+        pm10:
+          type: number
+        location:
+          type: number
+    weatherShort:
+      type: object
+      properties:
+        id:
+          type: integer
+        ts:
+          type: string
+        temp_c:
+          type: number
+        wind_kph:
+          type: number
+        humidity:
+          type: number
+    weatherFull:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        ts:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        temp_c:
+          type: number
+        feelslike_c:
+          type: number
+        condition_text:
+          type: string
+        wind_kph:
+          type: number
+        wind_dir:
+          type: string
+        humidity:
+          type: number
+        cloud:
+          type: number
