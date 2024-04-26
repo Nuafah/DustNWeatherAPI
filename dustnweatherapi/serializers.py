@@ -12,4 +12,3 @@ class WeatherSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         fields = "__all__"
         model = BangkokWeather
-

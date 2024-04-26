@@ -15,6 +15,9 @@ class BangkokWeather(models.Model):
     humidity = models.DecimalField(decimal_places=2, max_digits=4)
     cloud = models.DecimalField(decimal_places=2, max_digits=4)
 
+    class Meta:
+        db_table = "bangkok_weather"
+
     def __str__(self):
             return (f"Weather when {self.ts} in {self.name} will be {self.condition_text}. The temperature is {self.temp_c}"
                     f"that feels like {self.feelslike_c} with the humidity around {self.humidity}%")
@@ -29,6 +32,9 @@ class BangkokDust(models.Model):
     pm1 = models.DecimalField(decimal_places=2, max_digits=5)
     pm2_5 = models.DecimalField(decimal_places=2, max_digits=5)
     pm10 = models.DecimalField(decimal_places=2, max_digits=5)
+
+    class Meta:
+        db_table = "bangkok_dust"
 
     def __str__(self):
         return (f"{self.location} has pm1 = {self.pm1} µ/cubic metre, pm2.5 = {self.pm2_5} "
