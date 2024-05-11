@@ -1,0 +1,132 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'page/styles.css' %}">
+<!--<script src="{% static 'page/script.js' %}"></script>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather and Dust Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="Topic">
+         <a href="/"> Dust and Weather visualization</a>
+    </div>
+
+    <div class="choice-select">
+        <label for="location">Choose a location:</label>
+        <select name="location" id="location">
+          <option value="none" selected disabled hidden>location</option>
+          <option value="bang-khan">bang-khan</option>
+          <option value="saab">Saab</option>
+        </select>
+        <button>submit</button>
+    </div>
+
+    <div class="chart-container">
+        <div class="air">
+            <h2>Air Quality Timeline</h2>
+            <canvas id="pm-line-chart"></canvas>
+        </div>
+        <div class="wind">
+            <h2>Wind direction</h2>
+            <canvas id="polar-chart"></canvas>
+        </div>
+    </div>
+    <div class="chart-container" style="margin: 0px 5% 50px 5%;">
+        <div class="condition-text">
+            <h2>weather condition</h2>
+            <canvas id="condition-text"></canvas>
+        </div>
+        <div class="humidity">
+            <h2>Average Humidity</h2>
+            <p>11 % RH</p>
+            <div class="wind-speed">
+                <h2>Average Wind Speed</h2>
+                <p>22 kph</p>
+            </div>
+        </div>
+        <div class="Cloud">
+            <h2>Average Cloud</h2>
+            <p>22 %</p>
+            <div class="temp">
+                <h2>Average Temperature</h2>
+                <p>22 C</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+<!-- For line Chart-->
+  const ctx = document.getElementById('pm-line-chart');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+<!-- For polar chart  -->
+  const polar_ctx = document.getElementById('polar-chart');
+  new Chart(polar_ctx, {
+    type: 'polarArea',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [11, 16, 7, 3, 14],
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                ]
+            }]
+        }
+    });
+
+<!-- For condition hist Chart-->
+  const condition = document.getElementById('condition-text');
+
+  new Chart(condition, {
+    type: 'bar',
+    data: {
+      labels: ['Clear', 'Partly cloudy', 'Sunny'],
+      datasets: [{
+        label: 'My Dataset',
+        data: [65, 80, 55],
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)'
+            ],
+            borderColor: [
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)'
+            ],
+            borderWidth: 1
+        }]
+    }
+  });
+</script>
