@@ -1,31 +1,29 @@
+import datetime
+
 from django.db import models
 
 class BangkokWeather(models.Model):
     """BangkokWeather model represents weather data retrieved from API"""
     name = models.CharField(max_length=100)
-    lat = models.DecimalField(decimal_places=2, max_digits=5)
-    lon = models.DecimalField(decimal_places=2, max_digits=5)
-    ts = models.DateTimeField()
-    last_updated = models.TimeField()
-    temp_c = models.DecimalField(decimal_places=2, max_digits=4)
-    feelslike_c = models.DecimalField(decimal_places=2, max_digits=4)
+    ts = models.DateTimeField(default=datetime.datetime.now())
+    temp_c = models.DecimalField(decimal_places=2, max_digits=10)
     condition_text = models.CharField(max_length=300)
-    wind_kph = models.DecimalField(decimal_places=2, max_digits=4)
+    wind_kph = models.DecimalField(decimal_places=2, max_digits=10)
     wind_dir = models.CharField(max_length=3)
-    humidity = models.DecimalField(decimal_places=2, max_digits=4)
-    cloud = models.DecimalField(decimal_places=2, max_digits=4)
+    humidity = models.DecimalField(decimal_places=2, max_digits=10)
+    cloud = models.DecimalField(decimal_places=2, max_digits=10)
 
     class Meta:
         db_table = "bangkok_weather"
 
     def __str__(self):
             return (f"Weather when {self.ts} in {self.name} will be {self.condition_text}. The temperature is {self.temp_c}"
-                    f"that feels like {self.feelslike_c} with the humidity around {self.humidity}%")
+                    f"with the humidity around {self.humidity}%")
 
 
 class BangkokDust(models.Model):
     """BangkokDust model represents dust data retrieved from Dust Sensor"""
-    ts = models.DateTimeField
+    ts = models.DateTimeField(default=datetime.datetime.now())
     location = models.CharField(max_length=100)
     lat = models.DecimalField(decimal_places=2, max_digits=5)
     lon = models.DecimalField(decimal_places=2, max_digits=5)
