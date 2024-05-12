@@ -25,8 +25,6 @@ class BangkokDust(models.Model):
     """BangkokDust model represents dust data retrieved from Dust Sensor"""
     ts = models.DateTimeField(default=datetime.datetime.now())
     location = models.CharField(max_length=100)
-    lat = models.DecimalField(decimal_places=2, max_digits=5)
-    lon = models.DecimalField(decimal_places=2, max_digits=5)
     pm1 = models.DecimalField(decimal_places=2, max_digits=5)
     pm2_5 = models.DecimalField(decimal_places=2, max_digits=5)
     pm10 = models.DecimalField(decimal_places=2, max_digits=5)
@@ -37,3 +35,20 @@ class BangkokDust(models.Model):
     def __str__(self):
         return (f"{self.location} has pm1 = {self.pm1} µ/cubic metre, pm2.5 = {self.pm2_5} "
                 f"µ/cubic metre, pm10 = {self.pm10} µ/cubic metre")
+
+class BangkokDustNWeather(models.Model):
+    """BangkokDustNWeather model represents integrated Data from dust and weather data"""
+    location = models.CharField(max_length=100)
+    ts = models.DateTimeField(default=datetime.datetime.now())
+    pm1 = models.DecimalField(decimal_places=2, max_digits=5)
+    pm2_5 = models.DecimalField(decimal_places=2, max_digits=5)
+    pm10 = models.DecimalField(decimal_places=2, max_digits=5)
+    temp_c = models.DecimalField(decimal_places=2, max_digits=10)
+    condition_text = models.CharField(max_length=300)
+    wind_kph = models.DecimalField(decimal_places=2, max_digits=10)
+    wind_dir = models.CharField(max_length=3)
+    humidity = models.DecimalField(decimal_places=2, max_digits=10)
+    cloud = models.DecimalField(decimal_places=2, max_digits=10)
+
+    class Meta:
+        db_table = "bangkok_dustnweather"
