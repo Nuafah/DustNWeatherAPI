@@ -1,0 +1,120 @@
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'page/styles.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather and Dust Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="Topic">
+        <a href="/"> Dust and Weather visualization Api</a>
+        <!-- set api location  -->
+    </div>
+    <form method="POST" action="{% url 'index' %}">
+        {% csrf_token %}
+        <div class="choice-select">
+            <label for="location">Choose a location:</label>
+            <select name="location" id="location">
+              <option value="none" selected disabled hidden>location</option>
+              <option value="bangkhen">bang-khen</option>
+              <option value="saimai">Saimai</option>
+            </select>
+            <button type="submit">submit</button>
+        </div>
+    </form>
+
+    <div class="chart-container">
+        <div class="air">
+            <h2>Air Quality Timeline</h2>
+            <canvas id="pm-line-chart"></canvas>
+        </div>
+    </div>
+    <div class="chart-container" style="margin: 0px 5% 50px 5%;">
+        <div class="condition-text">
+            <h2>weather condition</h2>
+            <canvas id="condition-text"></canvas>
+        </div>
+        <div class="humidity">
+            <h2>Average Humidity</h2>
+            <p>{{avg_humidity}} % RH</p>
+            <div class="wind-speed">
+                <h2>Average Wind Speed</h2>
+                <p>{{avg_wind_kph}} kph</p>
+            </div>
+        </div>
+
+        <div class="Cloud">
+            <h2>Average Cloud</h2>
+            <p>{{avg_cloud}} %</p>
+            <div class="temp">
+                <h2>Average Temperature</h2>
+                <p>{{avg_temp_c}} C</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+<!-- For line Chart-->
+const ctx = document.getElementById('pm-line-chart').getContext('2d');
+const labels = {{ labels|safe }};
+const data = {{ data|safe }};
+const data1 = {{ data1|safe }};
+const data10 = {{ data10|safe }};
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Pm 1',
+                data: data1,
+                borderWidth: 1
+            },
+            {
+                label: 'Pm 2.5',
+                data: data,
+                borderWidth: 1
+            },
+            {
+                label: 'Pm 10',
+                data: data10,
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+<!-- For condition hist Chart-->
+  const condition = document.getElementById('condition-text');
+  const condition_key = {{ condition_key|safe }};
+  const condition_value = {{ condition_value|safe }};
+  new Chart(condition, {
+    type: 'bar',
+    data: {
+      labels: condition_key,
+      datasets: [{
+        label: 'Weather Type',
+        data: condition_value
+        }]
+    }
+  });
+</script>
