@@ -20,9 +20,9 @@
         <div class="choice-select">
             <label for="location">Choose a location:</label>
             <select name="location" id="location">
-              <option value="none" selected disabled hidden>location</option>
-              <option value="bangkhen">bang-khen</option>
-              <option value="saimai">Saimai</option>
+                <option value="none" selected disabled hidden>location</option>
+                <option value="bangkhen">bang-khen</option>
+                <option value="saimai">Saimai</option>
             </select>
             <button type="submit">submit</button>
         </div>
@@ -30,7 +30,7 @@
 
     <div class="chart-container">
         <div class="air">
-            <h2>Air Quality Timeline in Bangkok</h2>
+            <h2>Air Quality Timeline at {{location}}</h2>
             <canvas id="pm-line-chart"></canvas>
         </div>
     </div>

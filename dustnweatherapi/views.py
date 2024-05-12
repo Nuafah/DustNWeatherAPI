@@ -34,13 +34,13 @@ def index(request):
             return redirect('detail', location)
         return redirect('index')
     else:
-        dust_data = BangkokDustNWeather.objects.all()
+        dust_data = BangkokDustNWeather.objects.filter(location='bangkhen').all()
         dust_ts = [dust.ts.strftime('%Y-%m-%d') for dust in dust_data]
         dust_pm1 = [dust.pm1 for dust in dust_data]
         dust_pm2_5 = [dust.pm2_5 for dust in dust_data]
         dust_pm10 = [dust.pm10 for dust in dust_data]
 
-        weather_data = BangkokDustNWeather.objects.all()
+        weather_data = BangkokDustNWeather.objects.filter(location='bangkhen').all()
 
         weather_condition = [weather.condition_text for weather in
                              weather_data]
@@ -69,7 +69,8 @@ def index(request):
             'avg_wind_kph': avg_wind_kph,
             'avg_temp_c': avg_temp_c,
             'avg_humidity': avg_humidity,
-            'avg_cloud': avg_cloud
+            'avg_cloud': avg_cloud,
+            'location': 'bangkhen'
         })
 
 
