@@ -7,6 +7,12 @@ Regarding the API, the application offers endpoints to retrieve information on d
 ## Install instructions
 Please configure the `sample.env` file before proceeding with the installation.
 
+To activate the virtual environment
+
+```
+activate
+```
+
 Please install chart js
 ```
 npm install chart.js
