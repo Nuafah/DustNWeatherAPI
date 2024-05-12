@@ -4,6 +4,8 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'weather', views.WeatherViewSet)
 router.register(r'dust', views.DustViewSet)
+router.register(r'dustnweather', views.DustNWeatherViewSet)
+
 
 urlpatterns = [
     path('', include(router.urls)),
