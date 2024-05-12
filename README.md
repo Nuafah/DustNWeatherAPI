@@ -15,12 +15,12 @@ python -m venv venv
 
 Start the virtual environment.
 
-Windows
+* Windows
 ```
 venv\Scripts\activate
 ```
 
-macOS / Linux
+* macOS / Linux
 ```
 . venv/bin/activate 
 ```
