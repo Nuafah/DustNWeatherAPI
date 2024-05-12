@@ -108,5 +108,6 @@ def detail(request, location):
         'avg_wind_kph': avg_wind_kph,
         'avg_temp_c': avg_temp_c,
         'avg_humidity': avg_humidity,
-        'avg_cloud': avg_cloud
+        'avg_cloud': avg_cloud,
+        'location': location
     })
