@@ -7,10 +7,22 @@ For the API, the application offers endpoints to retrieve information on dust an
 ## Install instructions
 Please configure the `sample.env` file before proceeding with the installation.
 
-To activate the virtual environment
+Create virtual environment.
 
 ```
-activate
+python -m venv venv
+```
+
+Start the virtual environment.
+
+Windows
+```
+venv\Scripts\activate
+```
+
+macOS / Linux
+```
+. venv/bin/activate 
 ```
 
 Please install chart js
@@ -38,5 +50,7 @@ deactivate
 ```
 
 ## Team member
+
 Kanisorn KANOKRATANA 6510545284 Software and Knowledge Engineering student
+
 Yasatsawin KULDEJTITIPUN 6510545705 Software and Knowledge Engineering student
