@@ -2,18 +2,18 @@ from rest_framework import serializers
 from .models import BangkokDust, BangkokWeather, BangkokDustNWeather
 
 
-class DustSerializer(serializers.HyperlinkedModelSerializer):
+class DustSerializer(serializers.ModelSerializer):
     class Meta:
         fields = "__all__"
         model = BangkokDust
 
 
-class WeatherSerializer(serializers.HyperlinkedModelSerializer):
+class WeatherSerializer(serializers.ModelSerializer):
     class Meta:
         fields = "__all__"
         model = BangkokWeather
 
-class DustNWeatherSerializer(serializers.HyperlinkedModelSerializer):
+class DustNWeatherSerializer(serializers.ModelSerializer):
     class Meta:
         fields = "__all__"
         model = BangkokDustNWeather
