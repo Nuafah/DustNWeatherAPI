@@ -8,8 +8,8 @@ router.register(r'dustnweather', views.DustNWeatherViewSet)
 
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('index/', views.index, name='index'),
-    path('index/<str:location>', views.detail, name="detail"),
+    path('', views.index, name='index'),
+    path('<str:location>/', views.detail, name="detail"),
 ]

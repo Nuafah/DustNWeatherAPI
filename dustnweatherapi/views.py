@@ -91,6 +91,7 @@ def detail(request, location):
     condition_value = list(condition_count.values())
 
     wind_speed_data = [weather.wind_kph for weather in weather_data]
+    print(len(wind_speed_data))
     avg_wind_kph = round(sum(wind_speed_data) / len(wind_speed_data), 2)
     temp_c_data = [weather.temp_c for weather in weather_data]
     avg_temp_c = round(sum(temp_c_data) / len(temp_c_data), 2)
