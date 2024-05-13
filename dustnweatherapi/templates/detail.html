@@ -12,8 +12,10 @@
 </head>
 <body>
     <div class="Topic">
-        <a href="/"> Dust and Weather visualization Api</a>
-        <!-- set api location  -->
+        <a href="/"> Dust and Weather visualization</a>
+        <div class="api">
+            <a href="/api/">Api</a>
+        </div>
     </div>
     <form method="POST" action="{% url 'index' %}">
         {% csrf_token %}
