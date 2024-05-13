@@ -7,7 +7,7 @@ For the API, the application offers endpoints to retrieve information on dust an
 ## Install instructions
 Please configure the `sample.env` file before proceeding with the installation.
 
-Create virtual environment.
+Create a virtual environment.
 
 ```
 python -m venv venv
