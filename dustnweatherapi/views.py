@@ -1,30 +1,81 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from .serializers import DustSerializer, WeatherSerializer, DustNWeatherSerializer
 from .models import BangkokWeather, BangkokDust, BangkokDustNWeather
 from django.shortcuts import render, redirect
+from django_filters import rest_framework as filter
 
 
+class WeatherFilter(filter.FilterSet):
+    condition_text = filter.CharFilter(field_name="condition_text", lookup_expr="iexact")
+    temp_c_lte = filter.NumberFilter(field_name="temp_c", lookup_expr="lte")
+    temp_c_gte = filter.NumberFilter(field_name="temp_c", lookup_expr="gte")
+    wind_lte = filter.NumberFilter(field_name="wind_kph", lookup_expr="lte")
+    wind_gte = filter.NumberFilter(field_name="wind_kph", lookup_expr="gte")
+    humidity_lte = filter.NumberFilter(field_name="humidity", lookup_expr="lte")
+    humidity_gte = filter.NumberFilter(field_name="humidity", lookup_expr="gte")
+    cloud_lte = filter.NumberFilter(field_name="cloud", lookup_expr="lte")
+    cloud_gte = filter.NumberFilter(field_name="cloud", lookup_expr="gte")
+
+
+class DustFilter(filter.FilterSet):
+    location = filter.CharFilter(field_name="location", lookup_expr="iexact")
+    pm1_lte = filter.NumberFilter(field_name="pm1", lookup_expr="lte")
+    pm1_gte = filter.NumberFilter(field_name="pm1", lookup_expr="gte")
+    pm2_5_lte = filter.NumberFilter(field_name="pm2_5", lookup_expr="lte")
+    pm2_5_gte = filter.NumberFilter(field_name="pm2_5", lookup_expr="gte")
+    pm10_lte = filter.NumberFilter(field_name="pm10", lookup_expr="lte")
+    pm10_gte = filter.NumberFilter(field_name="pm10", lookup_expr="gte")
+
+
+class DustNWeatherFilter(filter.FilterSet):
+    location = filter.CharFilter(field_name="location", lookup_expr="iexact")
+    pm1_lte = filter.NumberFilter(field_name="pm1", lookup_expr="lte")
+    pm1_gte = filter.NumberFilter(field_name="pm1", lookup_expr="gte")
+    pm2_5_lte = filter.NumberFilter(field_name="pm2_5", lookup_expr="lte")
+    pm2_5_gte = filter.NumberFilter(field_name="pm2_5", lookup_expr="gte")
+    pm10_lte = filter.NumberFilter(field_name="pm10", lookup_expr="lte")
+    pm10_gte = filter.NumberFilter(field_name="pm10", lookup_expr="gte")
+    condition_text = filter.CharFilter(field_name="condition_text", lookup_expr="iexact")
+    temp_c_lte = filter.NumberFilter(field_name="temp_c", lookup_expr="lte")
+    temp_c_gte = filter.NumberFilter(field_name="temp_c", lookup_expr="gte")
+    wind_lte = filter.NumberFilter(field_name="wind_kph", lookup_expr="lte")
+    wind_gte = filter.NumberFilter(field_name="wind_kph", lookup_expr="gte")
+    humidity_lte = filter.NumberFilter(field_name="humidity", lookup_expr="lte")
+    humidity_gte = filter.NumberFilter(field_name="humidity", lookup_expr="gte")
+    cloud_lte = filter.NumberFilter(field_name="cloud", lookup_expr="lte")
+    cloud_gte = filter.NumberFilter(field_name="cloud", lookup_expr="gte")
 
 class WeatherViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
     queryset = BangkokWeather.objects.all()
     serializer_class = WeatherSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = "__all__"
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    #filterset_fields = "__all__"
+    filterset_class = WeatherFilter
+    ordering_fields = ["id", "ts", "temp_c", "wind_kph", "humidity", "cloud"]
 
 
 class DustViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
     queryset = BangkokDust.objects.all()
     serializer_class = DustSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = "__all__"
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    #filterset_fields = "__all__"
+    filterset_class = DustFilter
+    ordering_fields = "__all__"
     
     
 class DustNWeatherViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
     queryset = BangkokDustNWeather.objects.all()
     serializer_class = DustNWeatherSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = "__all__"    
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    #filterset_fields = "__all__"
+    filterset_class = DustNWeatherFilter
+    ordering_fields = ["id", "ts", "temp_c", "wind_kph", "humidity", "cloud", "location", "pm1", "pm2_5", "pm10"]
+
+
 
     
 def index(request):

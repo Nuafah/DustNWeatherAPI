@@ -1,6 +1,8 @@
 from django.urls import include, path
 from rest_framework import routers
 from . import views
+import requests
+
 router = routers.DefaultRouter()
 router.register(r'weather', views.WeatherViewSet)
 router.register(r'dust', views.DustViewSet)
